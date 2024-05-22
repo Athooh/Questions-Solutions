@@ -32,3 +32,61 @@ func main() {
 	z01.PrintRune(count)
 	z01.PrintRune('\n')
 }
+
+/*
+Solution 2:
+Uses a defined Itoa function instead of strconv package. This enables the program to print and display arguments that are more 9
+
+package main
+
+import (
+	"os"
+
+	"github.com/01-edu/z01"
+)
+
+func Itoa(num int) string {
+	if num == 0 {
+		return "0"
+	}
+
+	isNegativeNum := false
+
+	if num < 0 {
+		isNegativeNum = true
+		num = -num
+	}
+
+	var result []byte
+
+	for num > 0 {
+		digit := num % 10
+		result = append([]byte{byte('0' + digit)}, result...)
+		num /= 10
+	}
+
+	if isNegativeNum {
+		result = append([]byte{'-'}, result...)
+	}
+	return string(result)
+}
+
+func paramCount() {
+	var count int
+
+	arguments := os.Args[1:]
+
+	for range arguments {
+		count++
+	}
+
+	for _, val := range Itoa(count) {
+		z01.PrintRune(val)
+	}
+	z01.PrintRune('\n')
+}
+
+func main() {
+	paramCount()
+}
+*/
