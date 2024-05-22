@@ -44,16 +44,17 @@ func Chunk(slice []int, size int) {
 		fmt.Println()
 		return
 	}
+	//ceiling algorithm to get the size of the slice of slices
 	m := len(slice) / size
 	rem := len(slice) % size
 	if rem >= 1 {
 		m++
 	}
-
+//initializing the slice of slices
 	maped := make([][]int, m)
 
-	n := 0
-	count := 0
+	n := 0//the index of the slice currently being worked on
+	count := 0//to compare to size
 
 	for i := 0; i < len(slice); i++ {
 		if count == size {
@@ -65,7 +66,7 @@ func Chunk(slice []int, size int) {
 			count++
 		}
 	}
-	println(size, ": ", maped)
+	println(maped)
 }
 
 func main() {
