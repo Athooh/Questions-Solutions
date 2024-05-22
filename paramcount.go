@@ -18,6 +18,8 @@ package main
 import (
 	"fmt"
 	"os"
+
+	"github.com/01-edu/z01"
 )
 
 func main() {
@@ -26,6 +28,7 @@ func main() {
 		return
 	}
 	args := os.Args[1:]
-	count := len(args)
-	fmt.Println(count)
+	count := rune(len(args)) + '0'
+	z01.PrintRune(count)
+	z01.PrintRune('\n')
 }
