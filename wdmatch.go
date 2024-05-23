@@ -89,3 +89,40 @@ func main() {
 		z01.PrintRune('\n')
 	}
 }
+
+//Ferdinand Alt
+
+package main
+
+import (
+	"fmt"
+	"os"
+)
+
+func WordMatch(str1, str2 string) bool {
+	if len(str1) == 0 || len(str2) == 0 {
+		return false
+	}
+
+	i, j := 0, 0
+	for i < len(str1) && j < len(str2) {
+		if str1[i] == str2[j] {
+			i++
+		}
+		j++
+	}
+
+	return i == len(str1)
+}
+
+func main() {
+	if len(os.Args) != 3 {
+		return
+	}
+
+	str1, str2 := os.Args[1], os.Args[2]
+
+	if WordMatch(str1, str2) {
+		fmt.Println(str1)
+	}
+}
