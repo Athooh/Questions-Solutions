@@ -34,16 +34,47 @@
 // 250
 // $
 
+//Seth Solution
+
 package main
 
-import "fmt"
+import (
+	"github.com/01-edu/z01"
+)
 
 func ReduceInt(a []int, f func(int, int) int) {
 	if len(a) == 0 {
 		return
 	}
 
-	fmt.Println(f(a[0], a[1]))
+	result := a[0]
+	for i := 1; i < len(a); i++ {
+		result = f(result, a[i])
+	}
+
+	for _, c := range Itoa(int(result)) {
+		z01.PrintRune(c)
+	}
+	z01.PrintRune('\n')
+}
+
+func Itoa(n int) string {
+	if n == 0 {
+		return "0"
+	}
+
+	if n < 0 {
+		z01.PrintRune('-')
+		n = -n
+	}
+
+	var digits []rune
+	for n > 0 {
+		digit := n % 10
+		digits = append([]rune{rune('0' + digit)}, digits...)
+		n /= 10
+	}
+	return string(digits)
 }
 
 func main() {
@@ -177,4 +208,3 @@ func Itoa(num int64) string {
 //     ReduceInt(as, sum)
 //     ReduceInt(as, div)
 // }
-
