@@ -83,13 +83,24 @@ func Mul(a, b int) int {
 
 // Seth Solution
 
+package main
+
+import (
+	"fmt"
+
+	"github.com/01-edu/z01"
+)
+
 func FoldInt(f func(int, int) int, a []int, n int) {
-	sum := 0
-	for _, v := range a {
-		sum += v
+	var tot int
+	for _, y := range a {
+		tot += y
 	}
-	n = f(n, sum)
-	fmt.Println(n)
+	result := f(tot, n)
+	for _, c := range Itoa(result) {
+		z01.PrintRune(c)
+	}
+	z01.PrintRune('\n')
 }
 
 func Add(a, b int) int {
@@ -101,7 +112,27 @@ func Mul(a, b int) int {
 }
 
 func Sub(a, b int) int {
-	return a - b
+	if a > b {
+		return a - b
+	}
+	return b - a
+}
+
+func Itoa(n int) string {
+	if n == 0 {
+		return "0"
+	} else if n < 0 {
+		z01.PrintRune('-')
+		n = -n
+	}
+
+	var digits []rune 
+	for n > 0 {
+		digit := n%10
+		digits = append([]rune{rune('0' + digit)}, digits...)
+		n /= 10
+	}
+	return string(digits)
 }
 
 func main() {
