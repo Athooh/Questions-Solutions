@@ -23,12 +23,11 @@ package main
 
 import (
 	"os"
+
 	"github.com/01-edu/z01"
-	myfmt "checkpoint-questions/printfunction"
 )
 
 func main() {
-	myfmt.Print(30)
 	if len(os.Args) <= 1 || os.Args[1] == " " || len(os.Args) != 2 {
 		return
 	}
