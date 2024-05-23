@@ -61,3 +61,54 @@ func main() {
 	z01.PrintRune('\n') // Print a newline character
 }
 
+//rays solution
+// package main
+
+// import (
+// 	"os"
+
+// 	"github.com/01-edu/z01"
+// )
+
+// func main() {
+
+// 	hexaDecimal := "0123456789abcdef"
+// 	hexStr := ""
+
+// 	if len(os.Args) != 2 {
+// 		return
+// 	}
+// 	num := Atoi(os.Args[1])
+// 	if num == 0 {
+// 		Printn("ERROR")
+// 	}
+
+// 	for num > 0 {
+// 		indx := num % 16
+// 		hexStr = string(hexaDecimal[indx]) + hexStr
+// 		num = num / 16
+// 	}
+// 	Printn(hexStr)
+
+// }
+// func Atoi(s string) int {
+// 	num := 0
+
+// 	for _, v := range s {
+// 		n := int(v - 48)
+
+// 		if n < 0 || n > 9 {
+// 			return 0
+// 		}
+// 		num = (num * 10) + n
+
+// 	}
+// 	return num
+
+// }
+// func Printn(s string) {
+// 	for _, c := range s {
+// 		z01.PrintRune(c)
+// 	}
+// 	z01.PrintRune('\n')
+// }
