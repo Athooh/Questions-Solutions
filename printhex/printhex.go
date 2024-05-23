@@ -47,9 +47,9 @@ func main() {
 	for input > 0 {
 		digit := input % 16
 		if digit < 10 {
-			hexStr = string('0'+digit) + hexStr // Add digit to hexStr
+			hexStr = string(rune('0'+digit)) + hexStr // Add digit to hexStr
 		} else {
-			hexStr = string('a'+digit-10) + hexStr // Add letter to hexStr
+			hexStr = string(rune('a'+digit-10)) + hexStr // Add letter to hexStr
 		}
 		input /= 16 // Move to the next digit
 	}
