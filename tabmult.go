@@ -219,3 +219,73 @@ func main() {
 }
 
 */
+
+// Seth Solution
+
+package main
+
+import (
+	"os"
+
+	"github.com/01-edu/z01"
+)
+
+func main() {
+	if len(os.Args) != 2 {
+		z01.PrintRune('\n')
+		return
+	} 
+
+	args := os.Args[1]
+	num := Atoi(args)
+
+	for i := 1; i <= 9; i++ {
+		n1 := i
+		op := "x"
+		n2 := num
+		result := n1*n2
+		r := Itoa(result)
+		s1 := Itoa(n1)
+		s2 := Itoa(n2)
+		word := s1 + " " + op + " " + s2 + " " + "=" + " " + r
+		for _, c := range word {
+			z01.PrintRune(c)
+		}
+		z01.PrintRune('\n')
+	}
+}
+
+func Atoi(s string) int {
+	var number int
+	sign := 1
+
+	for idx, c := range s {
+		if c == '-' && idx == 0 {
+			sign = -1
+		} else if c == '+' && idx == 0 {
+			sign = 1
+		} else if c >= '0' && c <= '9' {
+			number = number*10 + int(c-'0')
+		} else {
+			return 0
+		}
+	}
+	return number * sign
+}
+
+func Itoa(n int) string {
+	if n == 0 {
+		return "0"
+	} else if n < 0 {
+		z01.PrintRune('-')
+		n = -n
+	}
+	var digits []rune
+
+	for n > 0 {
+		digit := n%10
+		digits = append([]rune{rune('0' + digit)}, digits...)
+		n /= 10
+	}
+	return string(digits)
+}
