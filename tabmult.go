@@ -100,3 +100,122 @@ func main() {
 	}
 
 }
+
+/*
+John Odhiambo's Solution
+
+package main
+
+import (
+	"os"
+
+	"github.com/01-edu/z01"
+)
+
+func Atoi(str string) int {
+	runes := []rune(str)
+
+	LenRune := 0
+	result := 0
+
+	for i := range runes {
+		LenRune = i + 1
+	}
+
+	if LenRune == 0 {
+		return 0
+	}
+
+	tens := 1
+
+	for k := 0; k < LenRune-1; k++ {
+		if runes[k] == '+' || runes[k] == '-' {
+			continue
+		}
+
+		tens *= 10
+	}
+
+	for i := range runes {
+		if (runes[0] == '-' || runes[0] == '+') && i == 0 {
+			continue
+		}
+
+		if runes[i] < '0' || runes[i] > '9' {
+			return 0
+		}
+
+		numb := 0
+
+		for j := '0'; j < runes[i]; j++ {
+			numb++
+		}
+
+		result += numb * tens
+		tens /= 10
+	}
+
+	if runes[0] == '-' {
+		result *= -1
+	}
+
+	return result
+}
+
+func Itoa(num int) string {
+	if num == 0 {
+		return "0"
+	}
+
+	isNegativeNum := false
+
+	if num < 0 {
+		isNegativeNum = true
+		num = -num
+	}
+
+	var result []byte
+
+	for num > 0 {
+		digit := num % 10
+		result = append([]byte{byte('0' + digit)}, result...)
+		num /= 10
+	}
+
+	if isNegativeNum {
+		result = append([]byte{'-'}, result...)
+	}
+	return string(result)
+}
+
+func tabMult() {
+	argumentString := os.Args[1]
+
+	num := Atoi(argumentString)
+
+	for i := 1; i <= 9; i++ {
+		z01.PrintRune(rune('0' + i))
+		z01.PrintRune(' ')
+		z01.PrintRune('*')
+		z01.PrintRune(' ')
+
+		for _, ch := range Itoa(num) {
+			z01.PrintRune(ch)
+		}
+
+		z01.PrintRune(' ')
+		z01.PrintRune('=')
+		z01.PrintRune(' ')
+
+		for _, ch := range Itoa(i * num) {
+			z01.PrintRune(ch)
+		}
+		z01.PrintRune('\n')
+	}
+}
+
+func main() {
+	tabMult()
+}
+
+*/
