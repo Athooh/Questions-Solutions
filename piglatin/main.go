@@ -98,3 +98,51 @@ func main() {
 // 	return result
 
 // }
+
+// Seth Solution
+
+package main
+
+import (
+	"os"
+
+	"github.com/01-edu/z01"
+)
+
+func main() {
+	if len(os.Args) != 2 {
+		return
+	}
+	args := os.Args[1]
+
+	word := ""
+	for i, c := range args {
+		if checkVowels(c) && i == 0 {
+			word = args + "ay"
+		} else if checkVowels(c) && i != 0 {
+			word = args[i:] + args[:i] + "ay"
+		}
+	}
+
+	check := false
+	for _, c := range word {
+		if checkVowels(c) {
+			check = true
+			break
+		}
+	}
+
+	if !check {
+		word = "No vowels"
+	}
+
+	for _, c := range word {
+		z01.PrintRune(c)
+	}
+	z01.PrintRune('\n')
+}
+
+func checkVowels(c rune) bool {
+	return (c == 'a' || c == 'A' || c == 'e' || c == 'E' || c == 'i' || c == 'I' || c == 'o' || c == 'O' || c == 'u' || c == 'U')
+}
+
