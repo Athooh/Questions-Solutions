@@ -240,13 +240,9 @@ func main() {
 	num := Atoi(args)
 
 	for i := 1; i <= 9; i++ {
-		n1 := i
-		op := "x"
-		n2 := num
+		n1, op, n2 := i, "x", num
 		result := n1*n2
-		r := Itoa(result)
-		s1 := Itoa(n1)
-		s2 := Itoa(n2)
+		r, s1, s2 := Itoa(result), Itoa(n1), Itoa(n2)
 		word := s1 + " " + op + " " + s2 + " " + "=" + " " + r
 		for _, c := range word {
 			z01.PrintRune(c)
