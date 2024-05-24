@@ -35,3 +35,40 @@ func containsRune(s string, r rune) bool {
 	}
 	return false
 }
+
+// Seth Solution
+
+package main
+
+import (
+	"os"
+
+	"github.com/01-edu/z01"
+)
+
+func main() {
+	if len(os.Args) != 3 {
+		return
+	}
+	args1 := os.Args[1]
+	args2 := os.Args[2]
+	seen := make(map[rune]bool)
+	exist := make(map[rune]bool)
+	inter := ""
+
+	for _, char := range args2 {
+		exist[char] = true
+	}
+
+	for _, char := range args1 {
+		if exist[char] && !seen[char] {
+			seen[char] = true
+			inter += string(char)
+		}
+	}
+
+	for _, c := range inter {
+		z01.PrintRune(c)
+	}
+	z01.PrintRune('\n')
+}
