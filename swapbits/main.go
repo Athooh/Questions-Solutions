@@ -25,3 +25,4 @@ func SwapBits(octet byte) byte {
 func SwapBits(octet byte) byte {
 	return (octet << 4) | (octet >> 4)
 }
+func main() {} //include an empty function main before submitting your code.
