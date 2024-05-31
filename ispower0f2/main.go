@@ -1,34 +1,3 @@
-package main
-
-import (
-	"fmt"
-	"os"
-)
-
-func main() {
-	if len(os.Args) != 2 {
-		return
-	}
-
-	arg := os.Args[1]
-	newArg := 0
-	for _, v := range arg {
-		n := int(v - 48)
-
-		newArg = (newArg * 10) + n
-
-	}
-
-	fmt.Println(isPowerof2(newArg))
-
-}
-
-func isPowerof2(newArg int) bool {
-
-	return newArg%2 == 0
-
-}
-
 // Seth  Solution
 package main
 
@@ -60,8 +29,8 @@ func main() {
 	z01.PrintRune('\n')
 }
 
-func IsPowerOf2(n int) bool {
-	return n%2 == 0
+func IsPowerOf2(num int) bool {
+	return num > 0 && (num&(num-1)) == 0
 }
 
 func Atoi(s string) int {
