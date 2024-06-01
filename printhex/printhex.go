@@ -112,3 +112,43 @@ func main() {
 // 	}
 // 	z01.PrintRune('\n')
 // }
+
+// Seth Solution
+
+package main
+
+import (
+	"os"
+	"strconv"
+
+	"github.com/01-edu/z01"
+)
+
+func main() {
+	if len(os.Args) != 2 {
+		return
+	}
+	Er := "ERROR"
+	num, err := strconv.Atoi(os.Args[1])
+	if err != nil || num < 0 {
+		for _, c := range Er {
+			z01.PrintRune(c)
+		}
+		z01.PrintRune('\n')
+		return
+	}
+
+	hexChars := "0123456789abcdef"
+	hex := ""
+
+	for num > 0 {
+		remainder := num % 16
+		hex = string(hexChars[remainder]) + hex
+		num /= 16
+	}
+
+	for _, c := range hex {
+		z01.PrintRune(c)
+	}
+	z01.PrintRune('\n')
+}
