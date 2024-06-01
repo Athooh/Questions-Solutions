@@ -31,3 +31,39 @@ func main() {
 	}
 
 }
+
+// Seth solution
+
+package main
+
+import (
+	"os"
+
+	"github.com/01-edu/z01"
+)
+
+func main() {
+	if len(os.Args) != 3 {
+		return
+	}
+
+	arg1, arg2 := os.Args[1], os.Args[2]
+
+	i, j := 0, 0
+
+	word := ""
+	for i < len(arg1) && j < len(arg2) {
+		if arg1[i] == arg2[j] {
+			word += string(arg1[i])
+			i++
+		}
+		j++
+	}
+
+	if arg1 == word {
+		z01.PrintRune('1')
+	} else {
+		z01.PrintRune('0')
+	}
+	z01.PrintRune('\n')
+}
