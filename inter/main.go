@@ -72,3 +72,32 @@ func main() {
 	}
 	z01.PrintRune('\n')
 }
+
+//Stella's Soln
+
+package main
+
+import (
+	"os"
+
+	"github.com/01-edu/z01"
+)
+
+func main() {
+	if len(os.Args) != 3 {
+		return
+	}
+	args1, args2, seen := os.Args[1], os.Args[2], make(map[rune]bool)
+
+	for _, char := range args2 {
+		seen[char] = false
+	}
+
+	for _, char := range args1 {
+		if seen[char] == false {
+			seen[char] = true
+			z01.PrintRune(char)
+		}
+	}
+	z01.PrintRune('\n')
+}
