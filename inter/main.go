@@ -82,17 +82,19 @@ func main() {
 	if len(os.Args) != 3 {
 		return
 	}
-	args1, args2, seen := os.Args[1], os.Args[2], make(map[rune]bool)
+
+	args1, args2, seen, exist := os.Args[1], os.Args[2], make(map[rune]bool), make(map[rune]bool)
 
 	for _, char := range args2 {
-		seen[char] = false
+		exist[char] = true
 	}
 
 	for _, char := range args1 {
-		if seen[char] == false {
+		if exist[char] && !seen[char] {
 			seen[char] = true
 			z01.PrintRune(char)
 		}
 	}
 	z01.PrintRune('\n')
 }
+
