@@ -36,12 +36,7 @@ import "github.com/01-edu/z01"
 func LastRune(s string) rune {
 	// a := []rune(s)
 	// return a[len(a)-1]
-
-	var lastrune rune
-	for _, r := range s {
-			lastrune = r
-	}
-	return lastrune
+	return rune(s[len(s)-1)
 }
 
 func main() {
