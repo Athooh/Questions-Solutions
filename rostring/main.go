@@ -57,3 +57,60 @@ func Printn(s string) {
 	}
 
 }
+
+// Seth Solution
+
+package main
+
+import (
+	"os"
+
+	"github.com/01-edu/z01"
+)
+
+func main() {
+	if len(os.Args) != 2 {
+		return
+	}
+
+	s := os.Args[1]
+
+	var sSlice []string
+
+	var start int
+	var end int
+
+	for i, c := range s {
+		if c == ' ' {
+			end = i
+			sSlice = append(sSlice, s[start:end])
+			start = end + 1
+		}
+	}
+	sSlice = append(sSlice, s[start:])
+
+	var newSlice []string
+
+	for _, c := range sSlice {
+		if c == "" {
+			continue
+		} else {
+			newSlice = append(newSlice, c)
+		}
+	}
+
+
+	var rostring string
+
+	for i, c := range newSlice[1:] {
+		if i < len(newSlice)-1 {
+			rostring += c + " "
+		}
+	}
+
+	for _, c := range rostring + newSlice[0] {
+		z01.PrintRune(c)
+	}
+	z01.PrintRune('\n')
+}
+
