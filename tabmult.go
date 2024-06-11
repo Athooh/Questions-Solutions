@@ -398,3 +398,52 @@ func main() {
 	}
 }
 
+// ombima solutions
+
+package main
+
+import (
+	"os"
+
+	"github.com/01-edu/z01"
+)
+
+func main() {
+	if len(os.Args) < 2 {
+		return
+	}
+
+	input := os.Args[1]
+	num := BasicAtoi(input)
+	var mult int
+	for i := 1; i <= 9; i++ {
+		mult = i * num
+		printStr(Itoa(i) + " " + "x" + " " + Itoa(num) + " " + "="  +" " + Itoa(mult))
+	}
+	
+}
+
+func BasicAtoi(s string) int {
+	var numbers int
+	for _, ch := range s {
+		numbers = numbers*10 + int(ch-'0')
+	}
+	return numbers
+}
+
+func printStr(s string) {
+	for _, ch := range s {
+		z01.PrintRune(ch)
+	}
+	z01.PrintRune('\n')
+}
+
+func Itoa(n int) string {
+	var digits []rune
+	for n > 0 {
+		digit := n % 10
+		digits = append([]rune{rune('0' + digit)}, digits...)
+		n /= 10
+	}
+	return string(digits)
+}

@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"os"
+
+	"github.com/01-edu/z01"
 )
 
 func main() {
@@ -20,13 +22,10 @@ func main() {
 	}
 
 	fmt.Println(isPowerof2(newArg))
-
 }
 
 func isPowerof2(newArg int) bool {
-
 	return newArg%2 == 0
-
 }
 
 // Seth  Solution
@@ -81,3 +80,50 @@ func IsPowerOf2(num int) bool {
 // 	}
 // 	return number * sign
 // }
+
+// ombima solution
+
+// package main
+
+// import (
+// "os"
+
+// "github.com/01-edu/z01"
+// )
+
+func main() {
+	if len(os.Args) != 2 {
+		return
+	}
+
+	args := os.Args[1]
+
+	n := BasicAtoi(args)
+	if isPowerOf2(n) {
+		printStr("true")
+	} else {
+		printStr("false")
+	}
+}
+
+func isPowerOf2(n int) bool {
+	if n <= 0 {
+		return false
+	}
+	return (n & (n - 1)) == 0
+}
+
+func BasicAtoi(s string) int {
+	var number int
+	for _, ch := range s {
+		number = number*10 + int(ch-'0')
+	}
+	return number
+}
+
+func printStr(s string) {
+	for _, ch := range s {
+		z01.PrintRune(ch)
+	}
+	z01.PrintRune('\n')
+}
