@@ -1,20 +1,19 @@
-// Copyright 2009 The Go Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
 
-// Test simulating a Turing machine, sort of.
 
 package main
 
 // brainfuck
-import "fmt"
+import ("fmt"
+         "os")
 
 var p, pc int
 var a [30000]byte
 
-const prog = "++++++++++[>+++++++>++++++++++>+++>+<<<<-]>++.>+.+++++++..+++.>++.<<+++++++++++++++.>.+++.------.--------.>+.>.!"
+//const prog = "++++++++++[>+++++++>++++++++++>+++>+<<<<-]>++.>+.+++++++..+++.>++.<<+++++++++++++++.>.+++.------.--------.>+.>.!"
 
-func scan(dir int) {
+
+
+func scan(dir int, prog string) {
 	for nest := dir; dir*nest > 0; pc += dir {
 		switch prog[pc+dir] {
 		case ']':
@@ -26,6 +25,8 @@ func scan(dir int) {
 }
 
 func main() {
+  checkArgs()
+var prog string = os.Args[1]
 	r := ""
 	for {
 		switch prog[pc] {
@@ -41,11 +42,11 @@ func main() {
 			r += string(a[p])
 		case '[':
 			if a[p] == 0 {
-				scan(1)
+				scan(1,prog)
 			}
 		case ']':
 			if a[p] != 0 {
-				scan(-1)
+				scan(-1,prog)
 			}
 		default:
 			fmt.Println("working..")
@@ -54,4 +55,9 @@ func main() {
 		}
 		pc++
 	}
+}
+func checkArgs(){
+  if len(os.Args) != 2 {
+    os.Exit(0)
+  }
 }
