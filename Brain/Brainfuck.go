@@ -1,63 +1,80 @@
-
-
 package main
 
-// brainfuck
-import ("fmt"
-         "os")
+import (
+	"fmt"
+	"os"
+)
 
-var p, pc int
-var a [30000]byte
+var pointer, progCount int
+var pointByte [30000]byte
 
-//const prog = "++++++++++[>+++++++>++++++++++>+++>+<<<<-]>++.>+.+++++++..+++.>++.<<+++++++++++++++.>.+++.------.--------.>+.>.!"
-
-
-
-func scan(dir int, prog string) {
-	for nest := dir; dir*nest > 0; pc += dir {
-		switch prog[pc+dir] {
-		case ']':
-			nest--
+func Scan(dir int, prog string) {
+	nest := 1
+	for nest > 0 {
+		progCount += dir
+		if progCount < 0 || progCount >= len(prog) {
+			fmt.Println("Error: unmatched '[' or ']'")
+			os.Exit(1)
+		}
+		switch prog[progCount] {
 		case '[':
-			nest++
+			if dir == 1 {
+				nest++
+			} else {
+				nest--
+			}
+		case ']':
+			if dir == 1 {
+				nest--
+			} else {
+				nest++
+			}
 		}
 	}
 }
 
 func main() {
-  checkArgs()
-var prog string = os.Args[1]
-	r := ""
-	for {
-		switch prog[pc] {
+	if len(os.Args) != 2 {
+		fmt.Println("Usage: go run . <brainfuck_code>")
+		return
+	}
+	prog := os.Args[1]
+
+	for progCount < len(prog) {
+		switch prog[progCount] {
 		case '>':
-			p++
+			pointer++
+			if pointer >= len(pointByte) {
+				pointer = 0
+			}
 		case '<':
-			p--
+			if pointer == 0 {
+				pointer = len(pointByte) - 1
+			} else {
+				pointer--
+			}
 		case '+':
-			a[p]++
+			pointByte[pointer]++
 		case '-':
-			a[p]--
+			pointByte[pointer]--
 		case '.':
-			r += string(a[p])
+			fmt.Print(string(pointByte[pointer]))
+		case ',':
+			input := make([]byte, 1)
+			if _, err := os.Stdin.Read(input); err != nil {
+				fmt.Println("Error reading input:", err)
+				return
+			}
+			pointByte[pointer] = input[0]
 		case '[':
-			if a[p] == 0 {
-				scan(1,prog)
+			if pointByte[pointer] == 0 {
+				Scan(1, prog)
 			}
 		case ']':
-			if a[p] != 0 {
-				scan(-1,prog)
+			if pointByte[pointer] != 0 {
+				Scan(-1, prog)
 			}
-		default:
-			fmt.Println("working..")
-			fmt.Println(r)
-			return
 		}
-		pc++
+		progCount++
 	}
-}
-func checkArgs(){
-  if len(os.Args) != 2 {
-    os.Exit(0)
-  }
 }
