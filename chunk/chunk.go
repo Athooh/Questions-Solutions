@@ -189,3 +189,38 @@ func main() {
 	Chunk([]int{0, 1, 2, 3, 4, 5, 6, 7}, 5)
 	Chunk([]int{0, 1, 2, 3, 4, 5, 6, 7}, 4)
 }
+
+// Stella's Soln
+package main
+
+import (
+	"fmt"
+)
+
+func Chunk(slice []int, size int) {
+	if size == 0 {
+		fmt.Println()
+		return
+	}
+	if len(slice) == 0 {
+		fmt.Println(slice)
+		return
+	}
+
+	outputSlice := [][]int{}
+	for size < len(slice) {
+		outputSlice = append(outputSlice, slice[:size])
+		slice = slice[size:]
+	}
+	outputSlice = append(outputSlice, slice)
+
+	fmt.Println(outputSlice)
+}
+
+func main() {
+	Chunk([]int{}, 10)
+	Chunk([]int{0, 1, 2, 3, 4, 5, 6, 7}, 0)
+	Chunk([]int{0, 1, 2, 3, 4, 5, 6, 7}, 3)
+	Chunk([]int{0, 1, 2, 3, 4, 5, 6, 7}, 5)
+	Chunk([]int{0, 1, 2, 3, 4, 5, 6, 7}, 4)
+}
