@@ -176,13 +176,10 @@ func Itoa(n int) string {
 // }
 
 // Seth Solution
-
 package main
 
 import (
 	"os"
-
-	"github.com/01-edu/z01"
 )
 
 func main() {
@@ -190,86 +187,83 @@ func main() {
 		return
 	}
 
-	value1 := Atoi(os.Args[1])
-	operator := os.Args[2]
-	value2 := Atoi(os.Args[3])
+	val1, err1 := Atoi(os.Args[1])
+	op := os.Args[2]
+	val2, err2 := Atoi(os.Args[3])
 
-	if (value1 >= 9223372036854775807 || value1 <= -9223372036854775807) || (value2 >= 9223372036854775807 || value2 <= -9223372036854775807) {
+	if !err1 || !err2 {
+		return
+	}
+
+	if val1 >= 9223372036854775807 || val1 <= -9223372036854775807 || val2 >= 9223372036854775807 || val2 <= -9223372036854775807 {
 		return
 	}
 
 	var result int
-	switch operator {
+
+	switch op {
 	case "+":
-		result = value1 + value2
+		result = val1 + val2
 	case "-":
-		result = value1 - value2
+		result = val1 - val2
 	case "*":
-		result = value1 * value2
+		result = val1 * val2
 	case "/":
-		if value2 == 0 {
-			word := "No division by 0"
-			for _, c := range word {
-				z01.PrintRune(c)
-			}
-			z01.PrintRune('\n')
+		if val2 == 0 || val1 == 0 {
+			os.Stdout.WriteString("No division by 0")
+			os.Stdout.WriteString("\n")
 			return
 		}
-		result = value1 / value2
+		result = val1 / val2
 	case "%":
-		if value2 == 0 {
-			word := "No modulo by 0"
-			for _, c := range word {
-				z01.PrintRune(c)
-			}
-			z01.PrintRune('\n')
+		if val2 == 0 || val1 == 0 {
+			os.Stdout.WriteString("No modulo by 0")
+			os.Stdout.WriteString("\n")
 			return
 		}
-		result = value1 % value2
+		result = val1 % val2
 	default:
 		return
 	}
-	r := Itoa(int(result))
-	for _, c := range r {
-		z01.PrintRune(c)
+	os.Stdout.WriteString(Itoa(result) + "\n")
+}
+
+func Atoi(s string) (int, bool) {
+	var number int
+	sign := 1
+
+	for i, c := range s {
+		if c == '-' && i == 0 {
+			sign = -1
+		} else if c == '+' && i == 0 {
+			sign = 1
+		} else if c >= '0' && c <= '9' {
+			number = number*10 + int(c-'0')
+		} else {
+			return 0, false
+		}
 	}
-	z01.PrintRune('\n')
+	return sign * number, true
 }
 
 func Itoa(n int) string {
 	if n == 0 {
 		return "0"
 	} else if n < 0 {
-		z01.PrintRune('-')
+		os.Stdout.WriteString("-")
 		n = -n
 	}
 
-	var digits []rune
+	digits := []rune{}
 	for n > 0 {
 		digit := n % 10
 		digits = append([]rune{rune('0' + digit)}, digits...)
 		n /= 10
 	}
+
 	return string(digits)
 }
 
-func Atoi(s string) int {
-	var number int
-	sign := 1
-
-	for idx, char := range s {
-		if char == '-' && idx == 0 {
-			sign = -1
-		} else if char == '+' && idx == 0 {
-			sign = 1
-		} else if char >= '0' && char <= '9' {
-			number = number*10 + int(char-'0')
-		} else {
-			return 0
-		}
-	}
-	return number * sign
-}
 
 //Stella's Soln 
 
