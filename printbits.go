@@ -218,3 +218,71 @@ func Itoa(n int) string {
 // & 1: This part of the expression performs a bitwise AND operation between the result of the right shift (num >> i) and the value 1. The & operator compares each corresponding bit of the two operands and sets the corresponding bit in the result to 1 if both bits are 1, otherwise it sets it to 0.
 // If the rightmost bit of num >> i is 1, the result of num >> i & 1 will be 1.
 // If the rightmost bit of num >> i is 0, the result of num >> i & 1 will be 0.
+
+// seth Solution 2
+
+package main 
+
+import (
+	"os"
+	"github.com/01-edu/z01"
+)
+
+func main() {
+	if len(os.Args) != 2 {
+		return
+	}
+
+	number, err := Atoi(os.Args[1])
+	if !err {
+		for _, c := range "00000000" {
+			z01.PrintRune(c)
+		}
+		z01.PrintRune('\n')
+		return
+	}
+	for i := 7; i >= 0; i-- {
+		bit := (number >> i) & 1
+		for _, v := range Itoa(bit) {
+			z01.PrintRune(v)
+		}
+	}
+	z01.PrintRune('\n')
+}
+
+func Atoi(s string) (int, bool) {
+	var number int
+	sign := 1
+
+	for idx, n := range s {
+		if idx == 0 && n == '-' {
+			sign = -1
+
+		} else if idx == 0 && n == '+' {
+			sign = 1
+
+		} else if n >= '0' && n <= '9' {
+			number = number*10 + int(n-'0')
+		} else {
+			return 0, false
+		}
+	}
+	return number * sign, true
+}
+
+func Itoa(n int) string {
+	if n == 0 {
+		return "0"
+	} else if n < 0 {
+		z01.PrintRune('-')
+		n = -n
+	} 
+
+	digits := []rune{}
+	for n > 0 {
+		digit := n % 10
+		digits = append([]rune{rune('0' + digit)}, digits...)
+		n /= 10
+	}
+	return string(digits)
+}
