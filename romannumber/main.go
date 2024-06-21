@@ -122,7 +122,6 @@ func Atoi(s string) int {
 }
 
 // Seth Solution
-
 package main
 
 import (
@@ -132,98 +131,108 @@ import (
 )
 
 func main() {
-	const Error = "ERROR: cannot convert to roman digit"
-
 	if len(os.Args) != 2 {
 		return
 	}
-	args := os.Args[1]
-	var result []string
-	var result1 []string
 
-	number := Atoi(args)
-	if number == 0 || number >= 4000 {
-		for _, c := range Error {
-			z01.PrintRune(c)
+	er := "ERROR: cannot convert to roman digit"
+
+	number, err := Atoi(os.Args[1])
+
+	if !err {
+		for _, v := range er {
+			z01.PrintRune(v)
 		}
 		z01.PrintRune('\n')
 		return
 	}
 
+	if number == 0 || number >= 4000 {
+		for _, v := range er {
+			z01.PrintRune(v)
+		}
+		z01.PrintRune('\n')
+		return
+	}
+
+	var romanMethod []string
+	var romanNumbers []string
+
 	for number > 0 {
 		if number >= 1000 {
-			result1, result = append(result1, "M"), append(result, "M")
+			romanNumbers, romanMethod = append(romanNumbers, "M"), append(romanMethod, "M")
 			number -= 1000
 		} else if number >= 900 {
-			result1, result = append(result1, "CM"), append(result, "(M-C)")
+			romanNumbers, romanMethod = append(romanNumbers, "CM"), append(romanMethod, "(M-C)")
 			number -= 900
 		} else if number >= 500 {
-			result1, result = append(result1, "D"), append(result, "D")
+			romanNumbers, romanMethod = append(romanNumbers, "D"), append(romanMethod, "D")
 			number -= 500
 		} else if number >= 400 {
-			result1, result = append(result1, "CD"), append(result, "(D-C)")
+			romanNumbers, romanMethod = append(romanNumbers, "CD"), append(romanMethod, "(D-C)")
 			number -= 400
 		} else if number >= 100 {
-			result1, result = append(result1, "C"), append(result, "C")
+			romanNumbers, romanMethod = append(romanNumbers, "C"), append(romanMethod, "C")
 			number -= 100
 		} else if number >= 90 {
-			result1, result = append(result1, "XC"), append(result, "(C-X)")
+			romanNumbers, romanMethod = append(romanNumbers, "XC"), append(romanMethod, "(C-X)")
 			number -= 90
 		} else if number >= 50 {
-			result1, result = append(result1, "L"), append(result, "L")
+			romanNumbers, romanMethod = append(romanNumbers, "L"), append(romanMethod, "L")
 			number -= 50
-		} else if number >= 40 {
-			result1, result = append(result1, "XL"), append(result, "(L-X)")
-			number -= 40
 		} else if number >= 10 {
-			result1, result = append(result1, "X"), append(result, "X")
+			romanNumbers, romanMethod = append(romanNumbers, "X"), append(romanMethod, "X")
 			number -= 10
 		} else if number >= 9 {
-			result1, result = append(result1, "IX"), append(result, "(X-I)")
+			romanNumbers, romanMethod = append(romanNumbers, "IX"), append(romanMethod, "(X-I)")
 			number -= 9
 		} else if number >= 5 {
-			result1, result = append(result1, "V"), append(result, "V")
+			romanNumbers, romanMethod = append(romanNumbers, "V"), append(romanMethod, "V")
 			number -= 5
 		} else if number >= 4 {
-			result1, result = append(result1, "IV"), append(result, "(v-I)")
-			number -= 4
-		} else {
-			result1, result = append(result1, "I"), append(result, "I")
+			romanNumbers, romanMethod = append(romanNumbers, "IV"), append(romanMethod, "(V-I)")
+		} else if number >= 1 {
+			romanNumbers, romanMethod = append(romanNumbers, "I"), append(romanMethod, "I")
 			number -= 1
 		}
 	}
-	for i, c := range result {
-		for _, n := range c {
-			z01.PrintRune(n)
-		}
-		if i < len(result)-1 {
-			z01.PrintRune('+')
+	var method string
+	for i, v := range romanMethod {
+		if i < len(romanMethod)-1 {
+			method += v + "+"
+		} else {
+			method += v
 		}
 	}
+	for _, v := range method {
+		z01.PrintRune(v)
+	}
 	z01.PrintRune('\n')
-	for _, n := range result1 {
-		for _, c := range n {
-			z01.PrintRune(c)
+
+	for _, v := range romanNumbers {
+		for _, n := range v {
+			z01.PrintRune(rune(n))
 		}
 	}
 	z01.PrintRune('\n')
 }
-// strconv.Atoi is allowed
-func Atoi(s string) int {
+
+func Atoi(s string) (int, bool) {
 	var number int
 	sign := 1
 
-	for idx, ch := range s {
-		if ch == '-' && idx == 0 {
+	for idx, n := range s {
+		if idx == 0 && n == '-' {
 			sign = -1
-		} else if ch == '+' && idx == 0 {
+
+		} else if idx == 0 && n == '+' {
 			sign = 1
-		} else if ch >= '0' && ch <= '9' {
-			number = number*10 + int(ch-'0')
+
+		} else if n >= '0' && n <= '9' {
+			number = number*10 + int(n-'0')
 		} else {
-			return 0
+			return 0, false
 		}
 	}
-	return number * sign
+	return number * sign, true
 }
-
