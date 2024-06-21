@@ -1,4 +1,3 @@
-
 // Instructions
 
 //     Write a function that simulates the behavior of the Itoa function in Go. Itoa transforms a number represented as anint in a number represented as a string.
@@ -42,17 +41,16 @@ package main
 
 import (
 	"fmt"
-
-	"github.com/01-edu/z01"
 )
 
 func Itoa(n int) string {
+	sign := ""
 	if n == 0 {
 		return "0"
 	}
 
 	if n < 0 {
-		z01.PrintRune('-')
+		sign = "-"
 		n = -n
 	}
 
@@ -61,6 +59,9 @@ func Itoa(n int) string {
 		digit := n % 10
 		digits = append([]rune{rune('0' + digit)}, digits...)
 		n /= 10
+	}
+	if sign != "" {
+		return sign + string(digits)
 	}
 	return string(digits)
 }
